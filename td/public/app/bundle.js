@@ -33793,6 +33793,8 @@ var app = angular.module('app', ['ui.bootstrap', 'ngRoute', 'common', 'xeditable
 
 //require custom modules, services, controllers and directives
 require('./common');
+require('./config');
+require('./services');
 
 app.run(['$rootScope', '$location',
     function ($rootScope, $location) {
@@ -33809,12 +33811,11 @@ app.run(['$route', '$rootScope', 'routemediator',
 app.run(function (editableOptions) {
     editableOptions.theme = 'bs3';
 });
-},{"./common":8,"angular":5,"angular-route":2,"angular-xeditable":3}],7:[function(require,module,exports){
+},{"./common":8,"./config":10,"./services":11,"angular":5,"angular-route":2,"angular-xeditable":3}],7:[function(require,module,exports){
 'use strict';
 
 var commonConfig = function () {
     this.config = {
-        controllerActivateSuccessEvent: 'ControllerActivateSuccess',
         demoModelLocation: {
             organisation: 'mike-goodwin',
             repo: 'owasp-threat-dragon-demo',
@@ -33957,4 +33958,86 @@ function logger($log) {
 }
 
 module.exports = logger;
+},{}],10:[function(require,module,exports){
+'use strict';
+
+var app = require('angular').module('app');
+
+// Configure Toastr
+toastr.options.timeOut = 4000;
+toastr.options.positionClass = 'toast-bottom-right';
+
+var events = {
+    controllerActivateSuccess: 'controller.activateSuccess',
+};
+
+var config = {
+    appErrorPrefix: '[Error] ', //Configure the exceptionHandler decorator
+    docTitle: 'Threat Dragon: ',
+    events: events,
+    version: '0.0.1',
+};
+
+app.value('config', config);
+
+app.config(['$logProvider', function ($logProvider) {
+    // turn debugging off/on (no info or warn)
+    if ($logProvider.debugEnabled) {
+        $logProvider.debugEnabled(true);
+    }
+}]);
+
+//Configure the common services via commonConfig
+app.config(['commonConfigProvider', function (cfg) {
+    cfg.config.controllerActivateSuccessEvent = config.events.controllerActivateSuccess;
+}]);
+},{"angular":5}],11:[function(require,module,exports){
+'use strict'
+
+var app = require('angular').module('app');
+app.factory('routemediator', ['$rootScope', '$location', 'config', 'logger' , require('./routemediator')]);
+},{"./routemediator":12,"angular":5}],12:[function(require,module,exports){
+'use strict';
+
+function routemediator($rootScope, $location, config, logger) {
+
+    // Define the functions and properties to reveal.
+    var handleRouteChangeError = false;
+    var service = {
+        setRoutingHandlers: setRoutingHandlers,
+    };
+
+    return service;
+
+    function setRoutingHandlers() {
+        updateDocTitle();
+        handleRoutingErrors();
+    }
+
+    function handleRoutingErrors() {
+        $rootScope.$on('$routeChangeError',
+            function (event, current, previous, rejection) {
+
+                if (handleRouteChangeError) {
+                    return;
+                }
+
+                handleRouteChangeError = true;
+                var msg = 'Error routing: ' + (current && current.name);
+                logger.logWarning(msg, current, 'routemediator', true);
+                $location.path('/');
+            });
+    }
+
+    function updateDocTitle() {
+        $rootScope.$on('$routeChangeSuccess',
+            function (event, current, previous) {
+                handleRouteChangeError = false;
+                var title = config.docTitle + ' ' + (current.title || '');
+                $rootScope.title = title;
+            });
+    }
+}
+
+module.exports = routemediator;
 },{}]},{},[6]);

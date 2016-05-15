@@ -13,6 +13,8 @@ var app = angular.module('app', ['ui.bootstrap', 'ngRoute', 'common', 'xeditable
 
 //require custom modules, services, controllers and directives
 require('./common');
+require('./config');
+require('./services');
 
 app.run(['$rootScope', '$location',
     function ($rootScope, $location) {
