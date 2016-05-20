@@ -3,6 +3,12 @@
 var angular = require('angular');
 require('angular-route');
 require('angular-xeditable');
+window.jQuery = require('jquery');
+require('bootstrap');
+require('lodash');
+require('backbone');
+require('jointjs');
+require('toastr');
 
 //temporary fix for Chrome/Jointjs problem
 SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function (toElement) {
@@ -14,7 +20,9 @@ var app = angular.module('app', ['ui.bootstrap', 'ngRoute', 'common', 'xeditable
 //require custom modules, services, controllers and directives
 require('./common');
 require('./config');
+require('./config.route');
 require('./services');
+require('./diagrams');
 
 app.run(['$rootScope', '$location',
     function ($rootScope, $location) {

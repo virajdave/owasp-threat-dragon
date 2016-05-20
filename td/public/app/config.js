@@ -1,6 +1,7 @@
 ﻿'use strict';
 
 var app = require('angular').module('app');
+var toastr = require('toastr');
 
 // Configure Toastr
 toastr.options.timeOut = 4000;

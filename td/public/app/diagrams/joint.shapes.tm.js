@@ -1,23 +1,43 @@
 ﻿
-if (typeof exports === 'object') {
+// if (typeof exports === 'object') {
 
-    var joint = {
-        util: require('../src/core').util,
-        shapes: {
-            basic: require('./joint.shapes.basic')
-        },
-        dia: {
-            Element: require('../src/joint.dia.element').Element,
-            Link: require('../src/joint.dia.link').Link
-        }
-    };
-}
+//     var joint = {
+//         util: require('../src/core').util,
+//         shapes: {
+//             basic: require('./joint.shapes.basic')
+//         },
+//         dia: {
+//             Element: require('../src/joint.dia.element').Element,
+//             Link: require('../src/joint.dia.link').Link
+//         }
+//     };
+// }
+
+var joint = require('jointjs');
+var V = joint.V;
 
 joint.shapes.tm = {};
 
 //utility functions for threat model shapes
 
 joint.shapes.tm.utils = {
+    
+    shapeFromClassName:  function (str) {
+        var arr = str.split(".");
+        /*jshint validthis: true */
+        var fn = (window || this);
+        for (var i = 0, len = arr.length; i < len; i++) {
+            fn = fn[arr[i]];
+        }
+        
+        fn = require('jointjs')[fn];
+
+        if (typeof fn !== "function") {
+            throw new Error("function not found");
+        }
+
+        return fn;
+    },
 
     editNameElement: function (element, value) {
         element.attr('text/text', this.wordWrap(element, value));

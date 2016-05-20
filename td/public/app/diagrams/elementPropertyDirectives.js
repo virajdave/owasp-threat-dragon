@@ -1,9 +1,7 @@
-﻿(function () {
+﻿
     'use strict';
-
-    var app = angular.module('app');
     
-    app.directive('tmtModalClose', [function () {
+    function modalClose() {
         
         var directive =
         {
@@ -31,9 +29,9 @@
             };
         }
 
-    }]);
+    };
 
-    app.directive('tmtElementProperties', ['common', function (common) {
+    function elementProperties(common) {
 
         var directive =
         {
@@ -54,9 +52,9 @@
         {
         }
 
-    }]);
+    };
 
-    app.directive('tmtElementThreats', ['$routeParams', '$location', 'common', 'dialogs', function ($routeParams, $location, common, dialogs) {
+    function elementThreats($routeParams, $location, common, dialogs) {
 
         var directive =
         {
@@ -157,8 +155,11 @@
             return { status: 'Open', severity: 'Medium' };
         }
 
-    }]);
+    };
 
-})();
-
+module.exports = {
+    modalClose: modalClose,
+    elementProperties: elementProperties,
+    elementThreats: elementThreats
+};
 

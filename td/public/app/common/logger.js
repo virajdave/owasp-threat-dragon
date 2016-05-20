@@ -1,5 +1,5 @@
 ﻿'use strict';
-//var toastr = require('toastr');
+var toastr = require('toastr');
 
 function logger($log) {
     var service = {
