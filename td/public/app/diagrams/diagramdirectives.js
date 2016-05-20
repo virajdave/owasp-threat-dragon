@@ -2,6 +2,7 @@
 'use strict';
 
 var joint = require('jointjs');
+var V = joint.V;
 var $ = require('jquery');
 
 var stencil = function (common) {

@@ -22,6 +22,7 @@ require('./common');
 require('./config');
 require('./config.route');
 require('./services');
+require('./layout');
 require('./diagrams');
 
 app.run(['$rootScope', '$location',
