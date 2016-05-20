@@ -1,5 +1,7 @@
 ﻿'use strict';
 
+var nools = require('nools');
+
 function threatengine($q) {
 
     var serviceId = 'threatengine';

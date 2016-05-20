@@ -5,6 +5,8 @@ require('angular-route');
 require('angular-xeditable');
 window.jQuery = require('jquery');
 require('bootstrap');
+require('angular-animate');
+require('angular-ui-bootstrap');
 require('lodash');
 require('backbone');
 require('jointjs');
@@ -15,7 +17,7 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
     return toElement.getScreenCTM().inverse().multiply(this.getScreenCTM());
 };
 
-var app = angular.module('app', ['ui.bootstrap', 'ngRoute', 'common', 'xeditable']);
+var app = angular.module('app', ['ui.bootstrap', 'ngAnimate', 'ngRoute', 'common', 'xeditable']);
 
 //require custom modules, services, controllers and directives
 require('./common');
@@ -23,7 +25,10 @@ require('./config');
 require('./config.route');
 require('./services');
 require('./layout');
+require('./welcome');
+require('./threatmodels');
 require('./diagrams');
+require('./directives');
 
 app.run(['$rootScope', '$location',
     function ($rootScope, $location) {

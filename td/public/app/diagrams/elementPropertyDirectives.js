@@ -1,6 +1,8 @@
 ﻿
     'use strict';
     
+    var $ = require('jquery');
+    
     function modalClose() {
         
         var directive =
