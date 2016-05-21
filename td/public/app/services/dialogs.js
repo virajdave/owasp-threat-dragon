@@ -12,7 +12,6 @@ function dialogs($rootScope, $location, $modal, common, datacontext) {
         structuredExit: structuredExit
     };
 
-    return service;
 
     function structuredExit(event, cancelNavigation, continueNavigation) {
 
@@ -33,7 +32,7 @@ function dialogs($rootScope, $location, $modal, common, datacontext) {
         return modal.result;
     }
 
-    function structuredExitModal($scope, $uibModalInstance, $location, destination, cancel, ok) {
+    var structuredExitModal = ['$scope', '$uibModalInstance', '$location', 'destination', 'cancel', 'ok', function($scope, $uibModalInstance, $location, destination, cancel, ok) {
         $scope.onCancel = onCancel;
         $scope.onOK = onOK;
 
@@ -47,7 +46,7 @@ function dialogs($rootScope, $location, $modal, common, datacontext) {
             $uibModalInstance.close();
             $location.path(destination);
         }
-    }
+    }];
 
     function confirm(template, onOkPreClose, getParameter, onCancelPreClose, windowClass) {
 
@@ -74,7 +73,7 @@ function dialogs($rootScope, $location, $modal, common, datacontext) {
         return modal.result;
     }
 
-    function confirmModal($scope, $uibModalInstance, ok, cancel, parameter) {
+    var confirmModal = ['$scope', '$uibModalInstance', 'ok', 'cancel', 'parameter', function($scope, $uibModalInstance, ok, cancel, parameter) {
 
         $scope.applyToAll = false;
         $scope.onCancel = onCancel;
@@ -93,7 +92,9 @@ function dialogs($rootScope, $location, $modal, common, datacontext) {
             if (angular.isDefined(ok)) { ok(param); }
             $uibModalInstance.close();
         }
-    }
+    }];
+    
+    return service;
 }
 
 module.exports = dialogs;

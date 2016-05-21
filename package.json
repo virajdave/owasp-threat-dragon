@@ -3,7 +3,6 @@
   "version": "0.2.0",
   "private": false,
   "scripts": {
-    "bundle": "browserify --debug ./td/public/app/app.js -o ./td/public/app/bundle.js",
     "start": "node server.js",
     "pretest": "node ./node_modules/jshint/bin/jshint --verbose --show-non-errors td",
     "test": "npm run-script test-client-phantomjs && npm run-script test-client-firefox && npm run-script test-server",
@@ -60,6 +59,7 @@
   },
   "devDependencies": {
     "bower": "^1.7.9",
+    "browserify": "^13.0.1",
     "codecov": "^1.0.1",
     "debug": "^2.2.0",
     "grunt": "^0.4.5",
@@ -85,6 +85,7 @@
     "karma-phantomjs-shim": "^1.4.0",
     "karma-spec-reporter": "0.0.24",
     "karma-xml-reporter": "^0.1.4",
+    "minifyify": "^7.3.3",
     "mockery": "^1.4.0",
     "passport-local": "^1.0.0",
     "phantomjs-polyfill-find": "ptim/phantomjs-polyfill-find",
