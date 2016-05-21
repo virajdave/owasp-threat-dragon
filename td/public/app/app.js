@@ -30,6 +30,10 @@ require('./threatmodels');
 require('./diagrams');
 require('./directives');
 
+app.config(['$provide', function ($provide) {
+    $provide.decorator('$exceptionHandler', ['$delegate', 'config', 'logger', require('./config.exceptionHandler')]);
+}]);
+
 app.run(['$rootScope', '$location',
     function ($rootScope, $location) {
         $rootScope.location = $location;
