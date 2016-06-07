@@ -1,5 +1,7 @@
 ﻿'use strict';
 
+var angular = require('angular');
+
 function threatModel($scope, $location, $routeParams, dialogs, common, datacontext) {
     var controllerId = 'threatmodel';
     /*jshint validthis: true */

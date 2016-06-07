@@ -1,12 +1,10 @@
 ﻿
 'use strict';
 
-var angular = require('angular');
-
 function shell($rootScope, $scope, $location, common, config) {
     /*jshint validthis: true */
     var controllerId = 'shell';
-    var vm = this;
+    //var vm = this;
     var logSuccess = common.logger.getLogFn(controllerId, 'success');
     var events = config.events;
 

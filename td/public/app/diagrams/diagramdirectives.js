@@ -1,6 +1,7 @@
 ﻿
 'use strict';
 
+var angular = require('angular');
 var joint = require('jointjs');
 var V = joint.V;
 var $ = require('jquery');

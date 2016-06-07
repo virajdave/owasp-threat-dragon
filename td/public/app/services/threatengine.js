@@ -4,7 +4,6 @@ var nools = require('nools');
 
 function threatengine($q) {
 
-    var serviceId = 'threatengine';
     var flowName = 'threat generation';
 
     var service = {

@@ -1,12 +1,9 @@
 ﻿'use strict';
 
+var angular = require('angular');
+
 function dialogs($rootScope, $location, $modal, common, datacontext) {
 
-    var serviceId = 'dialogs';
-    var getLogFn = common.logger.getLogFn;
-    var logError = getLogFn(serviceId, 'error');
-
-    // Define the functions and properties to reveal.
     var service = {
         confirm: confirm,
         structuredExit: structuredExit

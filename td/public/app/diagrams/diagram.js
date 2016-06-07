@@ -1,8 +1,11 @@
 ﻿'use strict';
 
+var angular = require('angular');
+
 function diagram($scope, $location, $routeParams, $timeout, dialogs, common, datacontext, threatengine, diagramming) {
 
     var controllerId = 'diagram';
+    /*jshint validthis: true */
     var vm = this;
     var getLogFn = common.logger.getLogFn;
     var log = getLogFn(controllerId);
@@ -14,7 +17,7 @@ function diagram($scope, $location, $routeParams, $timeout, dialogs, common, dat
     vm.errored = false;
     vm.title = 'ThreatModelDiagram';
     vm.initialise = initialise,
-        /*jshint -W030 */
+    /*jshint -W030 */
     vm.dirty = false;
     vm.graph = diagramming.newGraph();
     vm.newProcess = newProcess;

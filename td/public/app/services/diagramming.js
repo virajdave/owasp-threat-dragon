@@ -4,7 +4,6 @@ var joint = require('jointjs');
 
 function diagramming(common) {
 
-    var serviceId = 'diagramming';
     var zoomScaleFactor = 1.25;
 
     //graph extensions

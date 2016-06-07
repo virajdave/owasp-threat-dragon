@@ -2,11 +2,6 @@
 
 function datacontext($q, $http, common) {
 
-    var serviceId = 'datacontext';
-    var getLogFn = common.logger.getLogFn;
-    var log = getLogFn(serviceId);
-    var logError = getLogFn(serviceId, 'error');
-    var logSuccess = getLogFn(serviceId, 'success');
     var threatModel = null;
 
     var service = {
@@ -131,7 +126,7 @@ function datacontext($q, $http, common) {
 
         var threatModelUri = buildUri(service.threatModel.location);
 
-        return $http.delete(threatModelUri).then(onDeletedModel);
+        return $http.delete(threatModelUri).then(onDeletedModel, onDeleteError);
 
         function onDeletedModel() {
             service.threatModel = null;

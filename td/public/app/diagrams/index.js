@@ -1,5 +1,3 @@
-'use strict'
-
 var app = require('angular').module('app');
 require('./joint.shapes.tm');
 var diagramdirectives = require('./diagramdirectives');

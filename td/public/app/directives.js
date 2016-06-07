@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('app');
+var app = require('angular').module('app');
 
 app.directive('tmtPager', [function () {
 
