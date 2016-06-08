@@ -29,7 +29,7 @@ function getRoutes() {
         {
             url: '/',
             config: {
-                templateUrl: './public/app/welcome/welcome.html',
+                templateUrl: 'welcome.html',
                 title: 'Welcome Page',
                 settings: {
                 }
@@ -37,7 +37,7 @@ function getRoutes() {
         }, {
             url: '/welcome',
             config: {
-                templateUrl: './public/app/welcome/welcome.html',
+                templateUrl: 'welcome.html',
                 title: 'Welcome Page',
                 settings: {
                 }

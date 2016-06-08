@@ -4,6 +4,7 @@
   "private": false,
   "scripts": {
     "build": "npm run-script bundle-minify && npm run-script bundle-minify-css && npm run-script copy-fonts",
+    "build-templates": "browserify -t [browserify-ng-html2js --module templates] ./td/public/app/templates.build.js -o ./td/public/app/templates.js",
     "copy-fonts": "./node_modules/.bin/copyfiles -f ./node_modules/font-awesome/fonts/*.* ./node_modules/bootstrap/dist/fonts/*.* ./td/public/content/fonts",
     "bundle-css": "./node_modules/.bin/rework-npm ./td/public/content/styles/app.css -o ./td/public/content/styles/threatdragon.css",
     "minify-css": "./node_modules/.bin/cleancss ./td/public/content/styles/threatdragon.css -o ./td/public/content/styles/threatdragon.min.css",
@@ -54,7 +55,7 @@
     "helmet": "^1.3.0",
     "jade": "^1.11.0",
     "jade-bootstrap": "^1.0.2",
-    "jointjs": "^0.9.7",
+    "jointjs": "^0.9.9",
     "jquery": "^2.2.3",
     "lodash": "^4.12.0",
     "morgan": "^1.7.0",

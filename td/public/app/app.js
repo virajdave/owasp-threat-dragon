@@ -17,7 +17,7 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
     return toElement.getScreenCTM().inverse().multiply(this.getScreenCTM());
 };
 
-var app = angular.module('app', ['ui.bootstrap', 'ngAnimate', 'ngRoute', 'common', 'xeditable']);
+var app = angular.module('app', ['ui.bootstrap', 'ngAnimate', 'ngRoute', 'common', 'xeditable', 'templates']);
 
 //require custom modules, services, controllers and directives
 require('./common');
