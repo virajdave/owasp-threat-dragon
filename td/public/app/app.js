@@ -19,12 +19,12 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
 
 var app = angular.module('app', ['ui.bootstrap', 'ngAnimate', 'ngRoute', 'common', 'xeditable', 'templates']);
 
+//require core component
+require('owasp-threat-dragon-core');
+
 //require custom modules, services, controllers and directives
-require('./common');
-require('./config');
 require('./config.route');
 require('./services');
-require('./layout');
 require('./welcome');
 require('./threatmodels');
 require('./diagrams');

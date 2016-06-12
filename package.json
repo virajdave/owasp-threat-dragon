@@ -21,9 +21,7 @@
     "test-server": "istanbul cover --include-all-sources -x public/** --root ./td/ --dir ./coverage/Server/ ./td.tests/serverspec/support/jasmine-runner.js",
     "test-local": "npm run-script pretest && npm run-script test-client-chrome && npm run-script test-client-ie && npm run-script test-client-phantomjs && npm run-script test-client-firefox && npm run-script test-server",
     "citest": "./node_modules/.bin/karma start --single-run false --browsers PhantomJS",
-    "codecov": "./node_modules/.bin/codecov",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "codecov": "./node_modules/.bin/codecov"
   },
   "description": "OWASP Threat Dragon - a free, open source threat modelling tool",
   "author": {
@@ -37,6 +35,7 @@
     "url": "git://github.com/mike-goodwin/owasp-threat-dragon.git"
   },
   "dependencies": {
+    "OWASP-Threat-Dragon": "file:..\\owasp-threat-dragon-core",
     "angular": "^1.5.0",
     "angular-animate": "^1.5.5",
     "angular-route": "^1.5.0",
@@ -63,11 +62,11 @@
     "morgan": "^1.7.0",
     "nools": "^0.4.1",
     "octonode": "^0.7.5",
+    "owasp-threat-dragon-core": "file:..\\owasp-threat-dragon-core",
     "passport": "^0.3.2",
     "passport-github": "^1.1.0",
     "serve-favicon": "~2.3.0",
-    "toastr": "^2.1.2",
-    "snyk": "^1.14.3"
+    "toastr": "^2.1.2"
   },
   "devDependencies": {
     "browserify": "^13.0.1",
@@ -102,6 +101,5 @@
     "requirejs": "^2.1.20",
     "rework-npm-cli": "^0.1.1",
     "supertest": "^1.2.0"
-  },
-  "snyk": true
+  }
 }
