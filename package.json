@@ -35,7 +35,6 @@
     "url": "git://github.com/mike-goodwin/owasp-threat-dragon.git"
   },
   "dependencies": {
-    "OWASP-Threat-Dragon": "file:..\\owasp-threat-dragon-core",
     "angular": "^1.5.0",
     "angular-animate": "^1.5.5",
     "angular-route": "^1.5.0",
@@ -62,7 +61,7 @@
     "morgan": "^1.7.0",
     "nools": "^0.4.1",
     "octonode": "^0.7.5",
-    "owasp-threat-dragon-core": "file:..\\owasp-threat-dragon-core",
+    "owasp-threat-dragon-core": "^0.3.1",
     "passport": "^0.3.2",
     "passport-github": "^1.1.0",
     "serve-favicon": "~2.3.0",
