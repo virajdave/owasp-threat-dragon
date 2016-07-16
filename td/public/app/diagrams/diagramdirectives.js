@@ -139,7 +139,7 @@ var diagram = function (common) {
             setSelected(null);
         });
 
-        diagram.on('link:options', function (evt, cellView) {
+        diagram.on('link:options', function (cellView, evt) {
 
             if (selected && !selected.model.isLink()) {
                 removeLinkFrom(selected);
