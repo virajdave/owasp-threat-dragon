@@ -79,7 +79,7 @@ describe('security header tests', function() {
         
         var csp = 'default-src \'none\'; script-src \'self\' \'unsafe-eval\'; conn' +
                   'ect-src \'self\'; style-src \'self\' http://fonts.googleapis.com https://fonts.googleapis.com \'' +
-                  'unsafe-inline\'; img-src \'self\' data:; font-src \'self\' http://fonts.gstatic.com https://font' +
+                  'unsafe-inline\'; img-src \'self\' data:; font-src \'self\' data: http://fonts.gstatic.com https://font' +
                   's.gstatic.com; form-action \'self\' https://github.com; report-uri https://report-uri.io/report/owaspthreatdragon';
         
         request(app)

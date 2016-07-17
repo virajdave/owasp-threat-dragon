@@ -18,6 +18,12 @@ describe('app tests', function() {
             return mockLogger;
         }
     };
+
+    var mockExpressBunyan = function() {
+        return function(res, req, next) {
+            next();
+        }
+    };
     
     //skip session config and passport config here since it need LOADS of mocking
     var mockSessionConfig = function() { };
@@ -28,6 +34,7 @@ describe('app tests', function() {
         mockery.warnOnUnregistered(false);
         mockery.warnOnReplace(false);
         mockery.registerMock('bunyan', mockBunyan);
+        mockery.registerMock('express-bunyan-logger', mockExpressBunyan);
         mockery.registerMock('./config/session.config', mockSessionConfig);
         mockery.registerMock('./config/passport.config', mockPassportConfig);
     });
@@ -46,7 +53,8 @@ describe('app tests', function() {
         spyOn(mockLogger, 'info');
         spyOn(mockLogger, 'error');
         require('../../td/app');
-        expect(mockBunyan.createLogger.calls.argsFor(0)).toEqual([{name: 'threatdragon', level: 'info'}]);
+        expect(mockBunyan.createLogger.calls.argsFor(0)[0].name).toEqual('threatdragon');
+        expect(mockBunyan.createLogger.calls.argsFor(0)[0].level).toEqual('info');
         expect(mockLogger.info).toHaveBeenCalled();
         expect(mockLogger.error).not.toHaveBeenCalled();
     });
@@ -68,6 +76,22 @@ describe('app tests', function() {
         .expect(200)
         .end(finish_test(done));
         
+    });
+
+    it('should render a pug template', function(done) {
+
+        var app = require('../../td/app');
+        var router = require('express').Router();
+        router.get('/test', function(req, res) {
+           res.render('test');
+        });
+        app.use('/', router);
+
+        request(app)
+        .get('/test')
+        .expect(200)
+        .end(finish_test(done));
+
     });
 });
 
