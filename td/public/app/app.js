@@ -6,11 +6,6 @@ require('angular-xeditable');
 window.jQuery = require('jquery');
 require('bootstrap');
 require('angular-animate');
-require('angular-ui-bootstrap');
-require('lodash');
-require('backbone');
-require('jointjs');
-require('toastr');
 
 //temporary fix for Chrome/Jointjs problem
 SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function (toElement) {

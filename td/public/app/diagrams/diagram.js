@@ -147,7 +147,7 @@ function diagram($scope, $location, $routeParams, $timeout, dialogs, common, dat
         //only ask for confirmation if diagram is dirty AND it has some cells
         //avoids the confirmation if you are reloading after an accidental clear of the model
         if (vm.dirty && vm.graph.cellCount() > 0) {
-            dialogs.confirm('./public/app/diagrams/confirmReloadOnDirty.html', function () { vm.initialise(vm.currentDiagram, true); });
+            dialogs.confirm('diagrams/confirmReloadOnDirty.html', function () { vm.initialise(vm.currentDiagram, true); });
         }
         else {
             vm.initialise(vm.currentDiagram, true);
@@ -195,7 +195,7 @@ function diagram($scope, $location, $routeParams, $timeout, dialogs, common, dat
         function suggestThreat() {
             if (threatList.length > 0) {
                 currentThreat = threatList.shift();
-                dialogs.confirm('./public/app/diagrams/ThreatEditPane.html', addThreat, function () { return { heading: 'Add this threat?', threat: currentThreat, editing: false }; }, ignoreThreat, 'fade-right');
+                dialogs.confirm('diagrams/ThreatEditPane.html', addThreat, function () { return { heading: 'Add this threat?', threat: currentThreat, editing: false }; }, ignoreThreat, 'fade-right');
             }
         }
 

@@ -39,7 +39,7 @@ function elementProperties(common) {
     var directive =
         {
             link: link,
-            templateUrl: './public/app/diagrams/ElementPropertiesPane.html',
+            templateUrl: 'diagrams/ElementPropertiesPane.html',
             restrict: 'E',
             scope:
             {
@@ -61,7 +61,7 @@ function elementThreats($routeParams, $location, common, dialogs) {
     var directive =
         {
             link: link,
-            templateUrl: './public/app/diagrams/ThreatSummaryPane.html',
+            templateUrl: 'diagrams/ThreatSummaryPane.html',
             restrict: 'E',
             scope:
             {
@@ -82,14 +82,14 @@ function elementThreats($routeParams, $location, common, dialogs) {
         scope.applyToAll = false;
 
         scope.onNewThreat = function () {
-            dialogs.confirm('./public/app/diagrams/ThreatEditPane.html', scope.addThreat, function () { return { heading: 'New Threat', threat: newThreat, editing: true }; }, reset);
+            dialogs.confirm('diagrams/ThreatEditPane.html', scope.addThreat, function () { return { heading: 'New Threat', threat: newThreat, editing: true }; }, reset);
         };
 
         scope.onEditThreat = function (index) {
             editIndex = index;
             originalThreat = angular.copy(scope.threats[index]);
             $location.search('threat', originalThreat.id);
-            dialogs.confirm('./public/app/diagrams/ThreatEditPane.html', scope.editThreat, function () { return { heading: 'Edit Threat', threat: scope.threats[index], editing: true }; }, scope.cancelEdit);
+            dialogs.confirm('diagrams/ThreatEditPane.html', scope.editThreat, function () { return { heading: 'Edit Threat', threat: scope.threats[index], editing: true }; }, scope.cancelEdit);
         };
 
         scope.removeThreat = function (index) {

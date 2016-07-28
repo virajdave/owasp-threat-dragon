@@ -21,8 +21,8 @@ function threatModel($scope, $location, $routeParams, dialogs, common, dataconte
     vm.save = save;
     vm.create = create;
     vm.reload = reload,
-        /*jshint -W030 */
-        vm.threatModelLocation = threatModelLocation;
+    /*jshint -W030 */
+    vm.threatModelLocation = threatModelLocation;
     vm.deleteModel = deleteModel;
     vm.cancel = cancel;
     vm.newContributor = '';
@@ -99,7 +99,7 @@ function threatModel($scope, $location, $routeParams, dialogs, common, dataconte
 
     function reload() {
         if (vm.dirty) {
-            dialogs.confirm('./public/app/threatmodels/confirmReloadOnDirty.html', function () { getThreatModel(true); }, function () { return null; }, function () { });
+            dialogs.confirm('threatmodels/confirmReloadOnDirty.html', function () { getThreatModel(true); }, function () { return null; }, function () { });
         }
         else {
             getThreatModel(true);
