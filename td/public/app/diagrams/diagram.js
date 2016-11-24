@@ -68,11 +68,11 @@ function diagram($scope, $location, $routeParams, $timeout, dialogs, common, dat
     function getStencils() {
 
         var shapes = [
-            { shape: { class: diagramming.Process, label: 'Process' }, action: newProcess },
-            { shape: { class: diagramming.Store, label: 'Store' }, action: newStore },
-            { shape: { class: diagramming.Actor, label: 'Actor' }, action: newActor },
-            { shape: { class: diagramming.Flow, label: 'Data Flow' }, action: newFlow },
-            { shape: { class: diagramming.Boundary, label: 'Trust\nBoundary' }, action: newBoundary }];
+            { shape: { getElement: function() { return new diagramming.Process(); }, label: 'Process' }, action: newProcess },
+            { shape: { getElement: function() { return new diagramming.Store(); }, label: 'Store' }, action: newStore },
+            { shape: { getElement: function() { return new diagramming.Actor(); }, label: 'Actor' }, action: newActor },
+            { shape: { getElement: function() { return new diagramming.Flow(); }, label: 'Data Flow' }, action: newFlow },
+            { shape: { getElement: function() { return new diagramming.Boundary(); }, label: 'Trust\nBoundary' }, action: newBoundary }];
 
         return shapes;
     }

@@ -11523,6 +11523,11 @@ a.editable-empty:focus {
   text-decoration: none;
 }
 
+/*@import "bootstrap";
+@import "toastr";
+@import "font-awesome";
+@import "angular-xeditable";*/
+
 /*! JointJS v0.9.9 - JavaScript diagramming library  2016-05-31 
 
 
@@ -11975,6 +11980,14 @@ text.hasOpenThreats {
 .stencil .element:hover circle {
   stroke-width: 3;
 }
+
+/*@import "./logo-nav.css";*/
+
+/*@import "./spinner.css";*/
+
+/*@import "./bootstrap-theme.css";*/
+
+/*@import "./bootstrap-custom.css";*/
 
 /*@import "./logo-nav.css";*/
 
