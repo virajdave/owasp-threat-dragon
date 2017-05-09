@@ -6,3 +6,5 @@ patch:
   'npm:uglify-js:20151024':
     - nools > uglify-js:
         patched: '2017-03-14T00:14:57.796Z'
+    - owasp-threat-dragon-core > nools > uglify-js:
+        patched: '2017-05-09T00:34:11.553Z'
