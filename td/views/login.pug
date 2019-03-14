@@ -51,4 +51,10 @@ html(lang="en")
                                         input(type="hidden",name="_csrf",value=csrfToken)
                                         button.btn.btn-lg.btn-default.btn-block(type="submit")
                                             span.fa.fa-2x.fa-github.icon-align.fa-fw
-                                            span Login with GitHub                                            
+                                            span Login with GitHub
+                                .col-sm-5.col-sm-offset-7
+                                    form(action="trelloLogin", role="trelloLogin", method="POST")
+                                        input(type="hidden", name="_csrf", value=csrfToken)
+                                        button.btn.btn-lg.btn-default.btn-block(type="submit")
+                                            span.fa.fa-2x.fa-trello.icon-align.fa.fw
+                                            span Synch Trello Account

@@ -123,6 +123,14 @@ function getRoutes() {
                 settings: {
                 }
             }
+        },{
+            url: '/threatmodel/:organisation/:repo/:branch/:model/diagram/:diagramID/ThreatReportPDF',
+            config: {
+                title: 'Threat Model Report PDF',
+                templateUrl: 'report/ThreatReportPDF.html',
+                settings: {
+                }
+            }
         }
     ];
 }

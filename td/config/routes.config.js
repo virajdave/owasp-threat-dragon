@@ -4,6 +4,7 @@ var express = require('express');
 var csrf = require('csurf');
 var home = require('../controllers/homecontroller');
 var github = require('../controllers/githublogincontroller');
+var trello = require('../controllers/trellologincontroller'); //TODO: Look at this and see how github is used
 var threatmodel = require('../controllers/threatmodelcontroller');
 var router = express.Router();
 
@@ -24,7 +25,12 @@ module.exports = function(app) {
     router.post('/login', csrfProtection, github.doLogin);
     router.get('/login/github', github.doLogin);
     router.get('/oauth/github', github.doLogin, github.completeLogin);
-    
+
+    //trello sign in
+    router.post('/trelloLogin', csrfProtection, trello.doLogin);
+    router.get('/trelloLogin/trello', trello.doLogin);
+    router.get('/oauth/trello', trello.doLogin, trello.completeLogin);
+
     //threat models
     router.get('/threatmodel/repos', home.ensureLoggedIn, threatmodel.repos);
     router.get('/threatmodel/:organisation/:repo/branches', home.ensureLoggedIn, threatmodel.branches);

@@ -24,6 +24,10 @@ homeController.login = function (req, res) {
 //ensure current user is signed in
 homeController.ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn('/login');
 
+homeController.trelloLogin = function(req, res) {
+    res.render('trelloLogin', {csrfToken: req.csrfToken});
+}
+homeController.ensureTrelloLoggedIn = require('connect-ensure-login').ensureLoggedIn('/login');
 //angular template - dynamic for username and anti-csrf token
 homeController.logoutform = function (req, res) {
     res.render('logoutform', { csrfToken: req.csrfToken(), username: req.user.profile.username });
