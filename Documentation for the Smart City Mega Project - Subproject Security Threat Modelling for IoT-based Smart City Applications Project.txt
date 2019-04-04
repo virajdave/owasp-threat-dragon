@@ -1,0 +1,161 @@
+Documentation for the Smart City Mega Project - Subproject Security Threat Modelling for IoT-based Smart City Applications Project
+
+Setup Instructions:
+Steps
+1. Install node on your computer if you dont have it
+
+2. Install Git on your computer if you don't have it and add following to your path... you need the bin tools for npm install
+C:\Program Files\Git\usr\bin
+
+3. Download the owasp code, cd to main dir and 
+npm install
+-make sure nothing fails or errors out... (look for red text)
+-make sure to resolve all conflicts before proceeding
+
+4. In github create new oauth application (login... Settings>Developer settings>OAuth Apps> create new app with below...
+Name it any name
+-HomepageURL: http://localhost:3000/
+-Authorization callback url: http://localhost:3000/oauth/github
+-This will provide you with the github ID and Secret... 
+
+5. In command prompt set environment variables (on Mac, open the following command in terminal: "open .bash_profile"):
+set NODE_ENV=development
+set SESSION_STORE=local
+-(from github oauthapp)
+set GITHUB_CLIENT_ID= "value from GitHub Website under your settings"
+set GITHUB_CLIENT_SECRET="value from GitHub Website under your settings"
+
+
+MAC Users -  In bash_profile, set the following:
+export NODE_ENV=development
+export SESSION_STORE=local
+
+export GITHUB_CLIENT_ID="value from GitHub Website under your settings"
+export GITHUB_CLIENT_SECRET="value from GitHub Website under your settings"
+
+
+6. You will need to have 1 pair (2 different keys) of AES encryption keys...  you can generate the keys here: http://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx
+-In the file ./td/helpers/encryption.helper.js change any keys variable to the following (with your generated keys)
+
+keys = JSON.parse('[{"isPrimary": true, "id": 0, "value": "value from Key Generator website"}, {"isPrimary": false, "id": 1, "value": "value from Key Generator website"}]');
+
+
+
+
+- do step 8 below (save and recompile)
+6 (Part 2). Change session config json var
+-In the file ./td/config/session.config.js change the following (line ~18 unsecure)
+-from
+secret: process.env.SESSION_SIGNING_KEY,
+-to
+secret: 'any generic text or hash will work' (example: 'gUkXp2s5v8y/B?E(H+MbQeShVmYq3t6w')
+
+7. In Command Prompt or Terminal run "npm start" (starts the local web server on port 3000)
+in browser> http://localhost:3000/
+-if successful ui will proceed
+-terminal output for server will look similar to the following: 
+C:\Users\Nicholas\Desktop\ehealth\owasp-threat-dragon-master>npm start
+> owasp-threat-dragon@0.5.1 start C:\Users\Nicholas\Desktop\ehealth\owasp-threat-dragon-master
+> node server.js
+{"name":"threatdragon","excludes":["req-headers","res-headers","res","req","short-body","body","response-hrtime","incoming","user-agent","response-time","http-version"],"hostname":"Omen","pid":22388,"level":50,"security":true,"msg":"secure session cookie flag was false - should only happen in dev environments","time":"2019-01-02T19:27:35.262Z","v":0}
+{"name":"threatdragon","excludes":["req-headers","res-headers","res","req","short-body","body","response-hrtime","incoming","user-agent","response-time","http-version"],"hostname":"Omen","pid":22388,"level":50,"security":true,"msg":"local session store used - should only happen in dev environments","time":"2019-01-02T19:27:35.262Z","v":0}
+{"name":"threatdragon","hostname":"Omen","pid":22388,"level":30,"msg":"owasp threat dragon application started up","time":"2019-01-02T19:27:35.512Z","v":0}
+{"name":"threatdragon","hostname":"Omen","pid":22388,"req_id":"f8b12fcd-32bd-4182-9972-af6a1ac56e59","level":30,"remote-address":"::1","ip":"::1","method":"GET","url":"/","referer":"-","status-code":302,"msg":"::1 <-- GET / HTTP/1.1 302 56 - Chrome 71.0 Windows 10.0.0 28.394014 ms","time":"2019-01-02T19:27:48.828Z","v":0}
+{"name":"threatdragon","hostname":"Omen","pid":22388,"req_id":"3705965d-2578-4f61-bc89-98142a4548cd","level":30,"remote-address":"::1","ip":"::1","method":"GET","url":"/login","referer":"-","status-code":200,"msg":"::1 <-- GET /login HTTP/1.1 200 2443 - Chrome 71.0 Windows 10.0.0 1406.961128 ms","time":"2019-01-02T19:27:50.246Z","v":0}
+{"name":"threatdragon","hostname":"Omen","pid":22388,"req_id":"2f032cb4-13ff-440b-b250-32fa4a4a8a0b","level":30,"remote-address":"127.0.0.1","ip":"127.0.0.1","method":"POST","url":"/login","referer":"http://localhost:3000/login","status-code":200,"msg":"127.0.0.1 <-- POST /login HTTP/1.1 200 - http://localhost:3000/login Chrome 71.0 Windows 10.0.0 35.785427 ms","time":"2019-01-02T19:27:54.909Z","v":0}
+{"name":"threatdragon","hostname":"Omen","pid":22388,"req_id":"9b7f0dab-9329-409a-b097-d8c5d8cb6ba8","level":30,"remote-address":"::1","ip":"::1","method":"POST","url":"/login","referer":"http://localhost:3000/login","status-code":302,"msg":"::1 <-- POST /login HTTP/1.1 302 0 http://localhost:3000/login Chrome 71.0 Windows 10.0.0 6.353204 ms","time":"2019-01-02T19:27:54.913Z","v":0}
+{"name":"threatdragon","hostname":"Omen","pid":22388,"req_id":"b7a1bf6c-76d1-4632-925f-634834fdb50c","level":30,"security":true,"userName":"notagoodcoder","idp":"github","msg":"logged in","time":"2019-01-02T19:27:55.641Z","v":0}
+{"name":"threatdragon","hostname":"Omen","pid":22388,"req_id":"b7a1bf6c-76d1-4632-925f-634834fdb50c","level":30,"remote-address":"::1","ip":"::1","method":"GET","url":"/oauth/github?code=87d12e4bca083863faa3&state=c82ba8fac2b9d768d7a3452b4db9ed36dd3fc28fb03a889487b404075350ae4e","referer":"http://localhost:3000/","status-code":302,"msg":"::1 <-- GET /oauth/github?code=87d12e4bca083863faa3&state=c82ba8fac2b9d768d7a3452b4db9ed36dd3fc28fb03a889487b404075350ae4e HTTP/1.1 302 46 http://localhost:3000/ Chrome 71.0 Windows 10.0.0 479.459658 ms","time":"2019-01-02T19:27:55.645Z","v":0}
+{"name":"threatdragon","excludes":["req-headers","res-headers","res","req","short-body","body","response-hrtime","incoming","user-agent","response-time","http-version"],"hostname":"Omen","pid":22388,"level":50,"security":true,"msg":"secure anti-XSRF cookie flag was false - should only happen in dev environments","time":"2019-01-02T19:27:55.649Z","v":0}
+{"name":"threatdragon","hostname":"Omen","pid":22388,"req_id":"073dc140-462a-4c5c-8809-22d120c5669a","level":30,"remote-address":"::1","ip":"::1","method":"GET","url":"/","referer":"http://localhost:3000/","status-code":200,"msg":"::1 <-- GET / HTTP/1.1 200 1295 http://localhost:3000/ Chrome 71.0 Windows 10.0.0 8.113816 ms","time":"2019-01-02T19:27:55.657Z","v":0}
+{"name":"threatdragon","hostname":"Omen","pid":22388,"req_id":"36d79004-905f-47d6-a3fe-f1f180d9bcd1","level":30,"remote-address":"::1","ip":"::1","method":"GET","url":"/logoutform","referer":"http://localhost:3000/","status-code":200,"msg":"::1 <-- GET /logoutform HTTP/1.1 200 106 http://localhost:3000/ Chrome 71.0 Windows 10.0.0 22.267006 ms","time":"2019-01-02T19:27:56.057Z","v":0}
+
+8.after editing code saveall then run npm install (might be a quicker command) >npm start to run changes
+
+
+
+There are 2 repos. "owasp-threat-dragon" and "owasp-threat-dragon-core", any changes that you make in owasp-threat-dragon-core, you must run "npm install" in the owasp-threat-dragon-core directory and then in the owasp-threat-dragon directory you can run "npm start"
+
+There are temporary files created when the project is run, if you are going to commit something to the ""owasp-threat-dragon" repository, please reset/untrack/delete the following files prior to committing and pushing your code:
+
+- td/public/app/threatdragon.js
+- td/public/app/threatdragon.js.map
+- td/public/app/threatdragon.min.js
+- td//public/app/threatdragon.css
+- td//public/app/threatdragon.min.css
+
+
+
+Threat Engine Changes:
+In the "owasp-threat-dragon-core" repository there are a few files:
+- threatengine.js : Contains all ~90 rules that consist of the threat engine
+- ElementPropertiesPane.html: This is where you would add a property for a particular element
+- joint.shapes.tm.js: If you add a property to an element, you must add it in the respective element's list of properties
+
+For example if you add a checkbox (ex: Authentication Type) for a process in ElementPropertiesPane.html, you must go to the
+joint.shapes.tm.js and locate the line for the process properties, and add the property name there as well.
+The line begins as follows: "joint.shapes.tm.utils.defineProperties(joint.shapes.tm.Process.prototype, ['....."
+
+in the tools directory under the "owasp-threat-dragon-core" repository, the rules document, along with the parser are there. 
+For the Parser to work, the rules document must be called "Threat_Enginer_Rules.txt", the document must be in thes same folder as the parser script, and the encoding on the Threat_Enginer_Rules.txt file must be UTF-8.
+
+
+More information about the script:
+
+How to make changes to threat engine?
+1. In github clone the repo notagoodcoder/owasp-threat-dragon-core "the core repository "
+(this code contains the threat engine module)
+NOTE: This is seperate from the master project mike-goodwin/owasp-threat-dragon
+-In this projects package.json file edit the url parameter to include your username instead of 'mike-goodwin'
+-^during build it will include your branch changes rather than his master origin
+-The code in this repo is pulled when building the master repo
+git clone https://github.com/notagoodcoder/owasp-threat-dragon-core.git
+2. In the main project -> ./owasp-threat-dragon project code edit the package to point to your newly created branch...
+to do this cd to ./owasp-threat-dragon dir and run the command (with your github username):
+>npm install git://github.com/notagoodcoder/owasp-threat-dragon-core.git --save
+>npm run build
+-From here on in all your engine code changes need to be pushed to this core repo before building master (described in 2.)
+-The commands above needs to be run every time you push changes to the above core branch so they're included in master
+-Notice after running the above commands:
+    1. your package.json file will now include your branch for the ~core.git rather than mike-goodwins
+    2. the code from your branch appears in threatdragon.js after building
+//The below is just a quick code snippet that describes how to implement a basic threat engine rule
+//The below code implements a plain text password storage warning
+//It is activated when the user selects a storage unit and checks the box 'stores credentials'
+    function initialiseFlow(flowName) {
+        return nools.flow(flowName, function (flow) {
+            flow.rule('Plain Text Password Storage', [
+        //this is the logic for activating the threat
+        //(logic)if the element is a storage element and the store credentials box is clicked -> activate the threat
+                [Element, 'el', 'el.element.attributes.type == "tm.Store" && isTrue(el.element.storesCredentials)'],
+                [Threats, 'threats']
+            ], function (facts) {
+        //describe the threat attributes
+                facts.threats.collection.push({ ruleId: 'b2a6d40d-d3f8-4750-8e4d-c02ca84b13dd', //can be any unique hash
+                title: 'User Password Disclosure Threat', 
+                type: 'Information Disclosure', 
+                status: 'Open', 
+                severity: 'High', 
+                description: 'Passwords should not be stored as plain text' });
+            });
+        // existing generic STRIDE rules below
+            flow.rule('Generic Spoofing Threat Rule', [
+                ['or',
+                    [Element, 'el', 'el.element.attributes.type == "tm.Process"'],
+                    [Element, 'el', 'el.element.attributes.type == "tm.Actor"']
+                ],
+                [Threats, 'threats']
+            ], function (facts) {
+                facts.threats.collection.push({ ruleId: 'b2a6d40d-d3f8-4750-8e4d-c02cc84b13dc', title: 'Generic spoofing threat', type: 'Spoofing', status: 'Open', severity: 'Medium', description: 'A generic spoofing threat' });
+            });
+3. The python script builds the threat engine rules document into json to be inserted into the threatengine.js
+//export rule docx as .txt
+//ensure .txt is utf encoded
+//ensure script and txt are in same dir
+//alternatively you can just write the rules by hand
+>python threat_engine_parser.py
+//note the python script assumes the following
+//Rules are in the current table format
+//Rules are separated by "1. ..." "2. ..." etc.
+//"To do..." String indicates end of rules 
+
