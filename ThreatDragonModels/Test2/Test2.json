@@ -8,7 +8,711 @@
       {
         "title": "Test Diagram",
         "thumbnail": "./public/content/images/thumbnail.jpg",
-        "id": 0
+        "id": 0,
+        "diagramJson": {
+          "cells": [
+            {
+              "type": "tm.SmartWatch",
+              "size": {
+                "width": 80,
+                "height": 80
+              },
+              "position": {
+                "x": 50,
+                "y": 50
+              },
+              "angle": 0,
+              "id": "e58c36d1-a6fc-42e7-81ba-865396d690f9",
+              "z": 1,
+              "hasOpenThreats": false,
+              "attrs": {
+                "text": {
+                  "ref-y": 90,
+                  "text": "Smart Watch 0"
+                },
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.SmartWatch",
+              "size": {
+                "width": 80,
+                "height": 80
+              },
+              "position": {
+                "x": 50,
+                "y": 50
+              },
+              "angle": 0,
+              "id": "86ab01f3-d346-4622-8ebc-fdaaeaca8cf3",
+              "z": 2,
+              "hasOpenThreats": true,
+              "providesAuthenticationSmartWatch": false,
+              "isALogSmartWatch": false,
+              "validatesInputSmartWatch": false,
+              "storesCredentialsSmartWatch": false,
+              "isEncryptedSmartWatch": false,
+              "programmingLanguageSmartWatch": false,
+              "isSignedSmartWatch": false,
+              "remoteMedicalRecordStorageSmartWatch": false,
+              "privilegeLevelForSmartWatch": false,
+              "threats": [
+                {
+                  "ruleId": "0.2",
+                  "title": "Compliance in the Collection and Storage of Electronic Health Records",
+                  "type": "Information disclosure",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "Depending on the nation and region of subject data collection and storage (local or remote), specific operating rules may apply. For example: In the storage of electronic health records in Canada, specific rules and legislation are put into place varying by province or territory and continuously change over time. The legislation is written through discussion of principles of consent to collection, limited use, security safeguards, and patient participation.",
+                  "mitigation": "Legal council is required when defining User Agreements and when engineering specific rules of collection or storage to ensure all defined standards and criterion are met for the region(s) of operation.",
+                  "references": []
+                },
+                {
+                  "ruleId": "1.6",
+                  "title": "Code Permission",
+                  "type": "Elevation of privilege, Information Disclosure",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "An active developer with access to unrelated module code may tamper or disclose sensitive project information (Interproject Code Access).",
+                  "mitigation": "Throughout the development lifecycle, there are several mitigations that can be used:Within the Implementation phase, if a critical resource is being used, there should be a check to see if a resource has permissions/behavior which are not secure (such as a regular user being able to modify that resource). If there are such behaviors or permissions that exist, the program should create an error or exit the program [10].Within the Architecture and Design phase, one should split up the software components based on privilege level and if possible, control what data,functions and resources each component uses based the privilege level [10].Another option in this phase is to create a separate environment within the system/program where only within that area or environment has an elevated privilege [8].In the installation phase, default or most restrictive permissions should be set to avoid any code which doesn't have the permissions to be run. Also, the assumption that a system administrator will change the settings based on a manual is incorrect [10].In the System Configuration phase, The configurable, executable files and libraries should be only have read and write access by the system administrator. In the Documentation phase, within any documentation, any configurations that are suggested must be secure, and do not affect the operation of the computer or program [10].",
+                  "references": [
+                    {
+                      "name": "CWE-272: Least Privilege Violation",
+                      "link": "https://cwe.mitre.org/data/definitions/272.html"
+                    },
+                    {
+                      "name": "CWE-732: Incorrect Permission Assignment for Critical Resource",
+                      "link": "https://cwe.mitre.org/data/definitions/732.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "The following example demonstrates the weakness.",
+                      "code": "setuid(0);\n// Do some important stuff \nsetuid(old_uid);\n// Do some non privileged stuff."
+                    },
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "The following code calls chroot() to restrict the application to a subset of the filesystem below APP_HOME in order to prevent an attacker from using the program to gain unauthorized access to files located elsewhere. The code then opens a file specified by the user and processes the contents of the file.",
+                      "postText": "Constraining the process inside the application's home directory before opening any files is a valuable security measure. However, the absence of a call to setuid() with some non-zero value means the application is continuing to operate with unnecessary root privileges. Any successful exploit carried out by an attacker against the application can now result in a privilege escalation attack because any malicious operations will be performed with the privileges of the superuser. If the application drops to the privilege level of a non-root user, the potential for damage is substantially reduced.",
+                      "code": "chroot(APP_HOME);\nchdir(\"/\");\nFILE* data = fopen(argv[1], \"r+\");\n..."
+                    },
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "The following code sets the umask of the process to 0 before creating a file and writing \"Hello world\" into the file.",
+                      "postText": "After running this program on a UNIX system, running the \"ls -l\" command might return the following output: -rw-rw-rw- 1 username 13 Nov 24 17:58 hello.out The \"rw-rw-rw-\" string indicates that the owner, group, and world (all users) can read the file and write to it.",
+                      "code": "#define OUTFILE \"hello.out\"\n\numask(0);\nFILE *out;\n/* Ignore CWE-59 (link following) for brevity */ \n\nout = fopen(OUTFILE, \"w\");\nif (out) {\nfprintf(out, \"hello world!\\n\");\nfclose(out);\n}"
+                    },
+                    {
+                      "language": {
+                        "name": "PHP",
+                        "highlightAlias": "php"
+                      },
+                      "preText": "This code creates a home directory for a new user, and makes that user the owner of the directory. If the new directory cannot be owned by the user, the directory is deleted.",
+                      "postText": "Because the optional \"mode\" argument is omitted from the call to mkdir(), the directory is created with the default permissions 0777. Simply setting the new user as the owner of the directory does not explicitly change the permissions of the directory, leaving it with the default. This default allows any user to read and write to the directory, allowing an attack on the user's files. The code also fails to change the owner group of the directory, which may result in access by unexpected groups.",
+                      "code": "function createUserDir($username){\n$path = '/home/'.$username;\nif(!mkdir($path)){\nreturn false;\n}\nif(!chown($path,$username)){\nrmdir($path);\nreturn false;\n}\nreturn true;\n}"
+                    },
+                    {
+                      "language": {
+                        "name": "Perl",
+                        "highlightAlias": "perl"
+                      },
+                      "preText": "The following code snippet might be used as a monitor to periodically record whether a web site is alive. To ensure that the file can always be modified, the code uses chmod() to make the file world-writable.",
+                      "postText": "The first time the program runs, it might create a new file that inherits the permissions from its environment. A file listing might look like: -rw-r--r-- 1 username 13 Nov 24 17:58 secretFile.out This listing might occur when the user has a default umask of 022, which is a common setting. Depending on the nature of the file, the user might not have intended to make it readable by everyone on the system.\n\nThe next time the program runs, however - and all subsequent executions - the chmod will set the file's permissions so that the owner, group, and world (all users) can read the file and write to it: -rw-rw-rw- 1 username 13 Nov 24 17:58 secretFile.out Perhaps the programmer tried to do this because a different process uses different permissions that might prevent the file from being updated.",
+                      "code": "$fileName = \"secretFile.out\";\n\nif (-e $fileName) {\nchmod 0777, $fileName;\n}\n\nmy $outFH;\nif (! open($outFH, \">>$fileName\")) {\nExitError(\"Couldn't append to $fileName: $!\");\n}\nmy $dateString = FormatCurrentTime();\nmy $status = IsHostAlive(\"cwe.mitre.org\");\nprint $outFH \"$dateString cwe status: $status!\\n\";\nclose($outFH);"
+                    },
+                    {
+                      "language": {
+                        "name": "Bash",
+                        "highlightAlias": "bash"
+                      },
+                      "preText": "The following command recursively sets world-readable permissions for a directory and all of its children:",
+                      "postText": "If this command is run from a program, the person calling the program might not expect that all the files under the directory will be world-readable. If the directory is expected to contain private data, this could become a security problem.",
+                      "code": "chmod -R ugo+r DIRNAME"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "4.3",
+                  "title": "Exposure of Private Information (Privacy Violation)",
+                  "type": "Information disclosure",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "The software does not properly prevent private data(such as credit card numbers) from being accessed by actors who either (1) are not explicitly authorized to access the data or (2) do not have the implicit consent of the people to which the data is related. Mishandling private information, such as customer passwords or SocialSecurity numbers, can compromise user privacy and is often illegal. An exposure of private information does not necessarily prevent the software from working properly,and in fact it might be intended by the developer, but it can still be undesirable (or explicitly prohibited by law) for the people who are associated with this private information. Some examples of private information include: social security numbers, web surfing history,credit card numbers, bank accounts, personal health records such as medical conditions, insurance information, prescription records, medical histories, test and laboratory results.",
+                  "mitigation": "Separation of Privilege by compartmentalizing the system to have \"safe\" areas where trust boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the trust boundary and always be careful when interfacing with a compartment outside of the safe area.Ensure that appropriate compartmentalization is built into the system design and that the compartmentalization serves to allow for and further reinforce privilege separation functionality. Architects and designers should rely on the principle of least privilege to decide when it is appropriate to use and to drop system privileges.",
+                  "references": [
+                    {
+                      "name": "CWE-359: Exposure of Private Information ('Privacy Violation')",
+                      "link": "https://cwe.mitre.org/data/definitions/359.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "preText": "In 2004, an employee at AOL sold approximately 92 million private customer e-mail addresses to a spammer marketing an offshore gambling web site. In response to such high-profile exploits, the collection and management of private data is becoming increasingly regulated."
+                    },
+                    {
+                      "language": {
+                        "name": "C#",
+                        "highlightAlias": "csharp"
+                      },
+                      "preText": "The following code contains a logging statement that tracks the contents of records added to a database by storing them in a log file. Among other values that are stored, the getPassword() function returns the user-supplied plaintext password associated with the account.",
+                      "postText": "The code in the example above logs a plaintext password to the filesystem. Although many developers trust the filesystem as a safe storage location for data, it should not be trusted implicitly, particularly when privacy is a concern.",
+                      "code": "pass = GetPassword();\n...\ndbmsLog.WriteLine(id + \":\" + pass + \":\" + type + \":\" + tstamp);"
+                    },
+                    {
+                      "language": {
+                        "name": "Markup",
+                        "highlightAlias": "markup"
+                      },
+                      "preText": "This code uses location to determine the user's current US State location. First the application must declare that it requires the ACCESS_FINE_LOCATION permission in the application's manifest.xml:",
+                      "postText": "During execution, a call to getLastLocation() will return a location based on the application's location permissions.",
+                      "code": "<usespermission android:name=\\\"android.permission.ACCESS_FINE_LOCATION\\\"\\/>"
+                    },
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "In this case the application has permission for the most accurate location possible:",
+                      "postText": "While the application needs this information, it does not need to use the ACCESS_FINE_LOCATION permission, as the ACCESS_COARSE_LOCATION permission will be sufficient to identify which US state the user is in.",
+                      "code": "locationClient = new LocationClient(this, this, this);\nlocationClient.connect();\nLocation userCurrLocation;\nuserCurrLocation = locationClient.getLastLocation();\nderiveStateFromCoords(userCurrLocation);"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "10.1",
+                  "title": "External Control of System or Configuration Setting",
+                  "type": "Tampering",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "description": "One or more system settings or configuration elements can be externally controlled by a user[84].",
+                  "mitigation": "To mitigate this threat, the system can be split up by privilege level, so the settings/control are only changed by authorized users. [84]",
+                  "references": [
+                    {
+                      "name": "CWE-15: External Control of System or Configuration Setting",
+                      "link": "https://cwe.mitre.org/data/definitions/15.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "The following C code accepts a number as one of its command line parameters and sets it as the host ID of the current machine.",
+                      "postText": "Although a process must be privileged to successfully invoke sethostid(), unprivileged users may be able to invoke the program. The code in this example allows user input to directly control the value of a system setting. If an attacker provides a malicious value for host ID, the attacker can misidentify the affected machine on the network or cause other unintended behavior.",
+                      "code": "...\nsethostid(argv[1]);\n..."
+                    },
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "The following Java code snippet reads a string from an HttpServletRequest and sets it as the active catalog for a database Connection.",
+                      "postText": "...\nconn.setCatalog(request.getParameter(\"catalog\"));\n...",
+                      "code": "In this example, an attacker could cause an error by providing a nonexistent catalog name or connect to an unauthorized portion of the database."
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "10.7",
+                  "title": "Improper Privilege Management",
+                  "type": "Elevation of privilege",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "description": "The software does not properly assign, modify,track, or check privileges for an actor, creating an unintended sphere of control for that actor [90].",
+                  "mitigation": "To mitigate this threat three techniques are possible counter measures to properly manage privileges. There should be specific trust zones in the system, the least privilege principle should be in effect where the access rights of each user are given the minimum privilege level to do their task as well, privileges should be separated where multiple conditions need to be met to access [90].",
+                  "references": [
+                    {
+                      "name": "CWE-269: Improper Privilege Management",
+                      "link": "https://cwe.mitre.org/data/definitions/269.html"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "10.16",
+                  "title": "Unverified Ownership",
+                  "type": "Elevation of privilege",
+                  "status": "Open",
+                  "severity": "Low",
+                  "description": "The software does not properly verify that a critical resource is owned by the proper entity [99].",
+                  "mitigation": "To mitigate the threat of unverified ownership, the settings, management and handling of privilege needs to be managed carefully and the application needs to be designed from a separation of privilege point of view, which will require multiple conditions to access a resource. [99]",
+                  "references": [
+                    {
+                      "name": "CWE-283: Unverified Ownership",
+                      "link": "https://cwe.mitre.org/data/definitions/283.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "Python",
+                        "highlightAlias": "python"
+                      },
+                      "preText": "This function is part of a privileged program that takes input from users with potentially lower privileges.",
+                      "postText": "This code does not confirm that the process to be killed is owned by the requesting user, thus allowing an attacker to kill arbitrary processes.",
+                      "code": "def killProcess(processID):\nos.kill(processID, signal.SIGKILL)"
+                    },
+                    {
+                      "language": {
+                        "name": "Python",
+                        "highlightAlias": "python"
+                      },
+                      "preText": "This function remedies the problem by checking the owner of the process before killing it:",
+                      "code": "def killProcess(processID):\nuser = getCurrentUser()\n\n#Check process owner against requesting user \nif getProcessOwner(processID) == user:\nos.kill(processID, signal.SIGKILL)\nreturn\n\nelse:\nprint(\"You cannot kill a process you don't own\")\nreturn"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "2.2",
+                  "title": "Leftover Debug Code",
+                  "type": "Tampering",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "description": "Debug code can create unintended entry points in a deployed web application.A common development practice is to add \"backdoor\" code specifically designed for debugging or testing purposes that is not intended to be shipped or deployed with the application. When this sort of debug code is accidentally left in the application, the application is open to unintended modes of interaction. These back-door entry points create security risks because they are not considered during design or testing and fall outside of the expected operating conditions of the application.",
+                  "mitigation": "To mitigate this threat, all debug code should be removed prior to delivery of code.",
+                  "references": [
+                    {
+                      "name": "CWE-489: Leftover Debug Code",
+                      "link": "https://cwe.mitre.org/data/definitions/489.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "Markup",
+                        "highlightAlias": "markup"
+                      },
+                      "preText": "Debug code can be used to bypass authentication. For example, suppose an application has a login script that receives a username and a password. Assume also that a third, optional, parameter, called \"debug\", is interpreted by the script as requesting a switch to debug mode, and that when this parameter is given the username and password are not checked. In such a case, it is very simple to bypass the authentication process if the special behavior of the application regarding the debug parameter is known. In a case where the form is:",
+                      "postText": "Then a conforming link will look like:\n\n(informative)\n \nhttp://TARGET/authenticate_login.cgi?username=...&password=...\nAn attacker can change this to:\n\n(attack code)\n \nhttp://TARGET/authenticate_login.cgi?username=&password=&debug=1\nWhich will grant the attacker access to the site, bypassing the authentication process.",
+                      "code": "<FORM ACTION=\"/authenticate_login.cgi\">\n<INPUT TYPE=TEXT name=username>\n<INPUT TYPE=PASSWORD name=password>\n<INPUT TYPE=SUBMIT>\n</FORM>"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "2.4",
+                  "title": "Null Dereference",
+                  "type": "Denial of service",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "description": "The program can potentially dereference a null pointer, thereby raising a NullPointerException.Null pointer errors are usually the result of one or more programmer assumptions being violated. Most null pointer issues result in general software reliability problems, but if an attacker can intentionally trigger a null pointer dereference, the attacker might be able to use the resulting exception to bypass security logic or to cause the application to reveal debugging information that will be valuable in planning subsequent attacks.A null-pointer dereference takes place when a pointer with a value of NULL is used as though it pointed to a valid memory area.Null-pointer dereferences, while common, can generally be found and corrected in a simple way. They will always result in the crash of the process, unless exception handling (on some platforms) is invoked, and even then, little can be done to salvage the process.",
+                  "mitigation": "To mitigate this threat, if possible, this vulnerability would be prevented, if the programming language that was used to program the software did not use pointers. Another mitigation suggestion is to check to see if the pointers are referenced correctly prior to their use [14].",
+                  "references": [
+                    {
+                      "name": "Null Dereference",
+                      "link": "https://www.owasp.org/index.php/Null_Dereference"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "In the following code, the programmer assumes that the system always has a property named \"cmd\" defined. If an attacker can control the program's environment so that \"cmd\" is not defined, the program throws a null pointer exception when it attempts to call the trim() method.",
+                      "code": "String cmd = System.getProperty(\"cmd\"); cmd = cmd.trim();"
+                    },
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "Null-pointer dereference issues can occur through a number of flaws, including race conditions and simple programming omissions. While there are no complete fixes aside from contentious programming, the following steps will go a long way to ensure that null-pointer dereferences do not occur.\n\nBefore using a pointer, ensure that it is not equal to NULL:",
+                      "code": "if (pointer1 != NULL) {\n  /* make use of pointer1 */\n  /* ... */\n}"
+                    },
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "When freeing pointers, ensure they are not set to NULL, and be sure to set them to NULL once they are freed:",
+                      "postText": "if (pointer1 != NULL) {\n  free(pointer1);\n  pointer1 = NULL;\n}",
+                      "code": "If you are working with a multi-threaded or otherwise asynchronous environment, ensure that proper locking APIs are used to lock before the if statement; and unlock when it has finished.\n\n"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "2.7",
+                  "title": "Use of Obsolete Methods",
+                  "type": "Denial of service",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "description": "The use of deprecated or obsolete functions may indicate neglected code.As programming languages evolve, functions occasionally become obsolete due to: Advances in the languageImproved understanding of how operations should be performed effectively and securelyChanges in the conventions that govern certain operations, Functions that are removed are usually replaced by newer counterparts that perform the same task in some different and hopefully improved way.Refer to the documentation for this function in order to determine why it is deprecated or obsolete and to learn about alternative ways to achieve the same functionality. The remainder of this text discusses general problems that stem from the use of deprecated or obsolete functions.",
+                  "mitigation": "To mitigate this threat, the documentation for the program should be referred to, to determine the reason it is deprecated and to determine alternatives to using those methods, which may pose not only a function concern, but also a security concern.",
+                  "references": [
+                    {
+                      "name": "CWE-477: Use of Obsolete Function",
+                      "link": "https://cwe.mitre.org/data/definitions/477.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "The following code uses the deprecated function getpw() to verify that a plaintext password matches a user's encrypted password. If the password is valid, the function sets result to 1; otherwise it is set to 0.",
+                      "postText": "Although the code often behaves correctly, using the getpw() function can be problematic from a security standpoint, because it can overflow the buffer passed to its second parameter. Because of this vulnerability, getpw() has been supplanted by getpwuid(), which performs the same lookup as getpw() but returns a pointer to a statically-allocated structure to mitigate the risk. Not all functions are deprecated or replaced because they pose a security risk. However, the presence of an obsolete function often indicates that the surrounding code has been neglected and may be in a state of disrepair. Software security has not been a priority, or even a consideration, for very long. If the program uses deprecated or obsolete functions, it raises the probability that there are security problems lurking nearby.",
+                      "code": "...\ngetpw(uid, pwdline);\nfor (i=0; i<3; i++){\ncryptpw=strtok(pwdline, \":\");\npwdline=0;\n}\nresult = strcmp(crypt(plainpw,cryptpw), cryptpw) == 0;\n..."
+                    },
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "In the following code, the programmer assumes that the system always has a property named \"cmd\" defined. If an attacker can control the program's environment so that \"cmd\" is not defined, the program throws a null pointer exception when it attempts to call the \"Trim()\" method.",
+                      "code": "String cmd = null;\n...\ncmd = Environment.GetEnvironmentVariable(\"cmd\");\ncmd = cmd.Trim();"
+                    },
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "The following code constructs a string object from an array of bytes and a value that specifies the top 8 bits of each 16-bit Unicode character.",
+                      "postText": "In this example, the constructor may not correctly convert bytes to characters depending upon which charset is used to encode the string represented by nameBytes. Due to the evolution of the charsets used to encode strings, this constructor was deprecated and replaced by a constructor that accepts as one of its parameters the name of the charset used to encode the bytes for conversion.",
+                      "code": "...\nString name = new String(nameBytes, highByte);\n..."
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "6.4",
+                  "title": "Improper Input Validation",
+                  "type": "Tampering",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "The product does not validate or incorrectly validates input that can affect the control flow or data flow of a program. When software does not validate input properly, an attacker is able to craft the input in a form that is not expected by the rest of the application. This will lead to parts of the system receiving unintended input, which may result in altered control flow, arbitrary control of a resource, or arbitrary code execution.",
+                  "mitigation": "Use an input validation framework such asStruts or the OWASP ESAPI ValidationAPI. If you use Struts, be mindful ofStruts Validation ProblemsUnderstand all the potential areas where untrusted inputs can enter your software:parameters or arguments, cookies,anything read from the network,environment variables, reverse DNS lookups, query results, request headers,URL components, e-mail, files, filenames,databases, and any external systems that provide data to the application.Remember that such inputs may be obtained indirectly through API calls.Assume all input is malicious. Use an\"accept known good\" input validation strategy, i.e., use a whitelist of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications or transform it into something that does.When performing input validation,consider all potentially relevant properties, including length, type of input,the full range of acceptable values,missing or extra inputs, syntax,consistency across related fields, and conformance to business rules. As an example of business rule logic, \"boat\"may be syntactically valid because it only contains alphanumeric characters, but it is not valid if the input is only expected to contain colors such as \"red\" or \"blue.\"Do not rely exclusively on looking for malicious or malformed inputs (i.e., do not rely on a blacklist). A blacklist is likely to miss at least one undesirable input, especially if the code's environment changes. This can give attackers enough room to bypass the intended validation. However, blacklists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright.For any security checks that are performed on the client side, ensure that these checks are duplicated on the server side, in order to avoid client-side enforcement of server-side security, Attackers can bypass the client-side checks by modifying values after the checks have been performed, or by changing the client to remove the client-side checks entirely. Then, these modified values would be submitted to the server.Use dynamic tools and techniques that interact with the software using large test suites with many diverse inputs, such as fuzz testing (fuzzing), robustness testing, and fault injection. Use tools and techniques that require manual (human) analysis, such as penetration testing, threat modeling, and interactive tools that allow the tester torecord and modify an active session[25]",
+                  "references": [
+                    {
+                      "name": "CWE-20: Improper Input Validation",
+                      "link": "https://cwe.mitre.org/data/definitions/20.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "This example demonstrates a shopping interaction in which the user is free to specify the quantity of items to be purchased and a total is calculated.",
+                      "postText": "The user has no control over the price variable, however the code does not prevent a negative value from being specified for quantity. If an attacker were to provide a negative value, then the user would have their account credited instead of debited.",
+                      "code": "...\npublic static final double price = 20.00;\nint quantity = currentUser.getAttribute(\"quantity\");\ndouble total = price * quantity;\nchargeUser(total);\n..."
+                    },
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "The following example takes a user-supplied value to allocate an array of objects and then operates on the array.",
+                      "postText": "This example attempts to build a list from a user-specified value, and even checks to ensure a non-negative value is supplied. If, however, a 0 value is provided, the code will build an array of size 0 and then try to store a new Widget in the first location, causing an exception to be thrown.",
+                      "code": "private void buildList ( int untrustedListSize ){\nif ( 0 > untrustedListSize ){\ndie(\"Negative value supplied for list size, die evil hacker!\");\n}\nWidget[] list = new Widget [ untrustedListSize ];\nlist[0] = new Widget();\n}"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "6.9",
+                  "title": "Unchecked Return Value",
+                  "type": "Tampering",
+                  "status": "Open",
+                  "severity": "Low",
+                  "description": "The software does not check the return value from a method or function, which can prevent it from detecting unexpected states and conditions. Two common programmer assumptions are \"this function call can never fail\" and \"it doesn't matter if this function call fails\". If an attacker can force the function to fail or otherwise return a value that is not expected, then the subsequent program logic could lead to a vulnerability, because the software is not in a state that the programmer assumes. For example, if the program calls a function to drop privileges but does not check the return code to ensure that privileges were successfully dropped, then the program will continue to operate with the higher privileges.",
+                  "mitigation": "To mitigate this threat, three techniques must be applied to all functions in the given program that is being evaluated: Ensure all of the functions that return a value,actually return a value and confirm that the value is expected.Ensure within each function, that the possible of return values are coveredWithin each function, ensure that there is a check/default value when there is an error. [40]",
+                  "references": [
+                    {
+                      "name": "CWE-252: Unchecked Return Value",
+                      "link": "https://cwe.mitre.org/data/definitions/252.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "Consider the following code segment:",
+                      "postText": "The programmer expects that when fgets() returns, buf will contain a null-terminated string of length 9 or less. But if an I/O error occurs, fgets() will not null-terminate buf. Furthermore, if the end of the file is reached before any characters are read, fgets() returns without writing anything to buf. In both of these situations, fgets() signals that something unusual has happened by returning NULL, but in this code, the warning will not be noticed. The lack of a null terminator in buf can result in a buffer overflow in the subsequent call to strcpy().",
+                      "code": "char buf[10], cp_buf[10];\nfgets(buf, 10, stdin);\nstrcpy(cp_buf, buf);"
+                    },
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "The following code does not check to see if memory allocation succeeded before attempting to use the pointer returned by malloc().",
+                      "postText": "The traditional defense of this coding error is: \"If my program runs out of memory, it will fail. It doesn't matter whether I handle the error or simply allow the program to die with a segmentation fault when it tries to dereference the null pointer.\" This argument ignores three important considerations:\n\nDepending upon the type and size of the application, it may be possible to free memory that is being used elsewhere so that execution can continue.\nIt is impossible for the program to perform a graceful exit if required. If the program is performing an atomic operation, it can leave the system in an inconsistent state.\nThe programmer has lost the opportunity to record diagnostic information. Did the call to malloc() fail because req_size was too large or because there were too many requests being handled at the same time? Or was it caused by a memory leak that has built up over time? Without handling the error, there is no way to know.",
+                      "code": "buf = (char*) malloc(req_size);\nstrncpy(buf, xfer, req_size);"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "7.9",
+                  "title": "Poor Client Code Quality",
+                  "type": "Spoofing",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "description": "This threat involves entities that can pass untrusted inputs to method calls made within mobile code.These types of issues are not necessarily security issues in and of themselves but lead to security vulnerabilities. For example, buffer overflows within older versions of Safari (a poor code quality vulnerability) led to high risk drive-by Jailbreak attacks. Poor code-quality issues are typically exploited via malware or phishing scams. An attacker will typically exploit vulnerabilities in this category by supplying carefully crafted inputs to the victim. These inputs are passed onto code that resides within the mobile device where exploitation takes place. Typical types of attacks will exploit memory leaks and buffer overflows.[54]",
+                  "mitigation": "To mitigate this threat, the following countermeasures should be considered:Consistent coding patterns, standards in an organizationWrite code that is legible and documentedAny code that requires a buffer, the length of the input should be checked, and the length should be restricted. Use third party tools to find buffer overflows and memory leaks.Prioritize to fix any buffer overflows and memory leaks that are present in the code before moving onto other issues.",
+                  "references": [
+                    {
+                      "name": "Poor Client Code Quality",
+                      "link": "https://www.owasp.org/index.php/Mobile_Top_10_2016-M7-Poor_Code_Quality"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "Buffer Overflow example:",
+                      "postText": "We should avoid the use of the gets function to avoid a buffer overflow. This is an example of what most static analysis tools will report as a code quality issue.",
+                      "code": "include <stdio.h>\n\n int main(int argc, char **argv)\n    {\n    char buf[8]; // buffer for eight characters\n    gets(buf); // read from stdio (sensitive function!)\n    printf(\"%s\\n\", buf); // print out data stored in buf\n    return 0; // 0 as return value\n    }"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "7.10",
+                  "title": "Security Decisions Via Untrusted Inputs",
+                  "type": "Tampering",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "This threat involves entities that can pass untrusted inputs to the sensitive method calls. Examples of such entities include, but are not limited to, users, malware and vulnerable apps  An attacker with access to app can intercept intermediate calls and manipulate results via parameter tampering.",
+                  "mitigation": "To mitigate this threat, avoid using depreciated/unsupported methods for each platform that the application is being used. As an example, for iOS, avoid using the handleOpenURLmethod to process URL scheme calls. Find an alternative method that is supported by the platform.",
+                  "references": [
+                    {
+                      "name": "Security Decisions via Untrusted Inputs",
+                      "link": "https://www.owasp.org/index.php/Mobile_Top_10_2014-M8"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "8.2",
+                  "title": "Insufficient Logging ",
+                  "type": "Repudiation",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "description": "When a security-critical event occurs, the software either does not record the event or omits important details about the event when logging it.",
+                  "mitigation": "To mitigate this threat, there are 2countermeasures that can be implemented. Firstly,logging should be centralized with different levels of details. However, in a production environment there should be sufficient logging to allow system administrators to see attacks, diagnose and recover from errors.",
+                  "references": [
+                    {
+                      "name": "CWE-778: Insufficient Logging",
+                      "link": "https://cwe.mitre.org/data/definitions/778.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "Markup",
+                        "highlightAlias": "markup"
+                      },
+                      "preText": "The example below shows a configuration for the service security audit feature in the Windows Communication Foundation (WCF).",
+                      "postText": "The previous configuration file has effectively disabled the recording of security-critical events, which would force the administrator to look to other sources during debug or recovery efforts.",
+                      "code": "<system.serviceModel>\n<behaviors>\n<serviceBehaviors>\n<behavior name=\"NewBehavior\">\n<serviceSecurityAudit auditLogLocation=\"Default\"\nsuppressAuditFailure=\"false\"\nserviceAuthorizationAuditLevel=\"None\"\nmessageAuthenticationAuditLevel=\"None\" />\n\n...\n</system.serviceModel>"
+                    },
+                    {
+                      "language": {
+                        "name": "Markup",
+                        "highlightAlias": "markup"
+                      },
+                      "preText": "Logging failed authentication attempts can warn administrators of potential brute force attacks. Similarly, logging successful authentication events can provide a useful audit trail when a legitimate account is compromised. The following configuration shows appropriate settings, assuming that the site does not have excessive traffic, which could fill the logs if there are a large number of success or failure events.",
+                      "code": "<system.serviceModel>\n<behaviors>\n<serviceBehaviors>\n<behavior name=\"NewBehavior\">\n<serviceSecurityAudit auditLogLocation=\"Default\"\nsuppressAuditFailure=\"false\"\nserviceAuthorizationAuditLevel=\"SuccessAndFailure\"\nmessageAuthenticationAuditLevel=\"SuccessAndFailure\" />\n\n...\n</system.serviceModel>"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "10.2",
+                  "title": "Process Control",
+                  "type": "Tampering",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "Executing commands or loading libraries from an untrusted source or in an untrusted environment can cause an application to execute malicious commands (and payloads) on behalf of an attacker[85].",
+                  "mitigation": "To mitigate this threat, libraries and frameworks that are used must be from a trusted source, where these libraries can be relied upon and not be maliciously used by an adversary. [85]",
+                  "references": [
+                    {
+                      "name": "CWE-114: Process Control",
+                      "link": "https://cwe.mitre.org/data/definitions/114.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "The following code uses System.loadLibrary() to load code from a native library named library.dll, which is normally found in a standard system directory.",
+                      "postText": "The problem here is that System.loadLibrary() accepts a library name, not a path, for the library to be loaded. From the Java 1.4.2 API documentation this function behaves as follows [1]: A file containing native code is loaded from the local file system from a place where library files are conventionally obtained. The details of this process are implementation-dependent. The mapping from a library name to a specific filename is done in a system-specific manner. If an attacker is able to place a malicious copy of library.dll higher in the search order than file the application intends to load, then the application will load the malicious copy instead of the intended file. Because of the nature of the application, it runs with elevated privileges, which means the contents of the attacker's library.dll will now be run with elevated privileges, possibly giving them complete control of the system.",
+                      "code": "...\nSystem.loadLibrary(\"library.dll\");\n..."
+                    },
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "The following code from a privileged application uses a registry entry to determine the directory in which it is installed and loads a library file based on a relative path from the specified directory.",
+                      "postText": "The code in this example allows an attacker to load an arbitrary library, from which code will be executed with the elevated privilege of the application, by modifying a registry key to specify a different path containing a malicious version of INITLIB. Because the program does not validate the value read from the environment, if an attacker can control the value of APPHOME, they can fool the application into running malicious code.",
+                      "code": "...\nRegQueryValueEx(hkey, \"APPHOME\",\n0, 0, (BYTE*)home, &size);\nchar* lib=(char*)malloc(strlen(home)+strlen(INITLIB));\nif (lib) {\n\nstrcpy(lib,home);\nstrcat(lib,INITCMD);\nLoadLibrary(lib);\n}\n..."
+                    },
+                    {
+                      "language": {
+                        "name": "C",
+                        "highlightAlias": "c"
+                      },
+                      "preText": "The following code is from a web-based administration utility that allows users access to an interface through which they can update their profile on the system. The utility makes use of a library named liberty.dll, which is normally found in a standard system directory.",
+                      "postText": "The problem is that the program does not specify an absolute path for liberty.dll. If an attacker is able to place a malicious library named liberty.dll higher in the search order than file the application intends to load, then the application will load the malicious copy instead of the intended file. Because of the nature of the application, it runs with elevated privileges, which means the contents of the attacker's liberty.dll will now be run with elevated privileges, possibly giving the attacker complete control of the system. The type of attack seen in this example is made possible because of the search order used by LoadLibrary() when an absolute path is not specified. If the current directory is searched before system directories, as was the case up until the most recent versions of Windows, then this type of attack becomes trivial if the attacker can execute the program locally. The search order is operating system version dependent, and is controlled on newer operating systems by the value of the registry key: HKLM\\System\\CurrentControlSet\\Control\\Session Manager\\SafeDllSearchMode",
+                      "code": "LoadLibrary(\"liberty.dll\");"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "10.5",
+                  "title": "Privilege Defined With Unsafe Actions",
+                  "type": "Elevation of privilege",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "A particular privilege, role, capability, or right can be used to perform unsafe actions that were not intended, even when it is assigned to the correct entity.",
+                  "mitigation": "To mitigate this threat, the settings, managements and handling of privileges must be managed carefully. There should be accounts with limited privileges if there is a task that needs to be done,with very specific privilege levels [88].",
+                  "references": [
+                    {
+                      "name": "CWE-267: Privilege Defined With Unsafe Actions",
+                      "link": "https://cwe.mitre.org/data/definitions/267.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "This code intends to allow only Administrators to print debug information about a system.",
+                      "postText": "While the intention was to only allow Administrators to print the debug information, the code as written only excludes those the with the role of \"GUEST\". Someone with the role of \"ADMIN\" or \"USER\" will be allowed access, which goes against the original intent. An attacker may be able to use this debug information to craft an attack on the system.",
+                      "code": "public enum Roles {\nADMIN,USER,GUEST\n}\n\npublic void printDebugInfo(User requestingUser){\nif(isAuthenticated(requestingUser)){\nswitch(requestingUser.role){\ncase GUEST:\nSystem.out.println(\"You are not authorized to perform this command\");\nbreak;\n\ndefault:\nSystem.out.println(currentDebugState());\nbreak;\n}\n}\nelse{\nSystem.out.println(\"You must be logged in to perform this command\");\n}\n}"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "10.6",
+                  "title": "Privilege Chaining",
+                  "type": "Elevation of privilege",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "Two distinct privileges, roles, capabilities, or rights can be combined in a way that allows an entity to perform unsafe actions that would not be allowed without that combination [89].",
+                  "mitigation": "To mitigate this threat, the settings, managements and handling of privileges must be managed carefully. There should be accounts with limited privileges if there is a task that needs to be done,with very specific privilege levels. In addition to those techniques, privileges should be separated where multiple conditions need to be met to access[89].",
+                  "references": [
+                    {
+                      "name": "CWE-268: Privilege Chaining",
+                      "link": "https://cwe.mitre.org/data/definitions/268.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "This code allows someone with the role of \"ADMIN\" or \"OPERATOR\" to reset a user's password. The role of \"OPERATOR\" is intended to have less privileges than an \"ADMIN\", but still be able to help users with small issues such as forgotten passwords.",
+                      "postText": "This code does not check the role of the user whose password is being reset. It is possible for an Operator to gain Admin privileges by resetting the password of an Admin account and taking control of that account.",
+                      "code": "public enum Roles {\nADMIN,OPERATOR,USER,GUEST\n}\n\npublic void resetPassword(User requestingUser, User user, String password ){\nif(isAuthenticated(requestingUser)){\nswitch(requestingUser.role){\ncase GUEST:\nSystem.out.println(\"You are not authorized to perform this command\");\nbreak;\n\ncase USER:\nSystem.out.println(\"You are not authorized to perform this command\");\nbreak;\n\ndefault:\nsetPassword(user,password);\nbreak;\n}\n}\n\nelse{\nSystem.out.println(\"You must be logged in to perform this command\");\n}\n}"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "7.2",
+                  "title": "Improper Platform Usage",
+                  "type": "Tampering",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "description": "This category covers misuse of a platform feature or failure to use platform security controls. It might include Android intents, platform permissions,misuse of TouchID, the Keychain, or some other security control that is part of the mobile operating system. The defining characteristic of risks in this category is that the platform (iOS, Android)provides a feature or a capability that is documented and well understood. The app fails to use that capability or uses it incorrectly. This differs from other mobile top ten risks because the design and implementation is not strictly the app developer's issue.There are several ways that mobile apps can experience this risk.Violation of published guidelines. All platforms have development guidelines for security (((Android)),((iOS))). If an app contradicts the best practices recommended by the manufacturer, it will be exposed to this risk. For example, there are guidelines on how to use the iOS Keychain or how to secure exported services on Android. Apps that do not follow these guidelines will experience this risk. Violation of convention or common practice: Not all best practices are codified in manufacturer guidance. In some instances, there are de facto best practices that are common in mobile apps. Unintentional Misuse: Some apps intend to do the right thing but get some part of the implementation wrong. This could be a simple bug, like setting the wrong flag on an API call, or it could be a misunderstanding of how the protections work.",
+                  "mitigation": "To mitigate this threat, secure coding and proper configurations must be used on the server side of the mobile application [47].",
+                  "references": [
+                    {
+                      "name": "Improper Platform Usage",
+                      "link": "https://www.owasp.org/index.php/Mobile_Top_10_2016-M1-Improper_Platform_Usage"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "7.12",
+                  "title": "Lack of Binary Protections",
+                  "type": "Information disclosure",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "This threat involves an adversary who will analyze and reverse engineer a mobile app's code, then modify it to perform some hidden functionality. The majority of mobile apps do not prevent an adversary from successfully analyzing, reverse engineering or modifying the app's binary code.[60]",
+                  "mitigation": "To mitigate this threat from an adversary from analysis and reversing engineering the code, or unauthorized code modification, an application must follow very secure guidelines to activate the following mechanisms in a platform:Jailbreak Detection Controls;Checksum Controls;Certificate Pinning Controls;Debugger Detection ControlsThese controls also require that the application have two more additional requirements. Firstly, the organization that is making the app must attempt to deny the adversary to analyze and reverse engineer the app using analysis techniques that can be static or dynamic. Lastly, the app must be able to determine at runtime if it's application code has been modified or added and react accordingly. [60]",
+                  "references": [
+                    {
+                      "name": "Lack of Binary Protections",
+                      "link": "https://www.owasp.org/index.php/Mobile_Top_10_2014-M10"
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "9.9",
+                  "title": "Missing Authentication for Critical Function",
+                  "type": "Spoofing",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "The software does not perform any authentication for functionality that requires a provable user identity or consumes a significant amount of resources [75].",
+                  "mitigation": "To mitigate this threat there are several countermeasures that can be implemented. Firstly, the application should be split up based on privilege levels where it’s maintained by a centralized authentication mechanism. Secondly, any security check that was implemented on the client side of an application should also be on the server side. Another migration technique is to avoid designing and implementing an authentication function that is custom-tailed to the application. Lastly, any library or framework which is known to have countermeasures that will have the authentication function.",
+                  "references": [
+                    {
+                      "name": "CWE-306: Missing Authentication for Critical Function",
+                      "link": "https://cwe.mitre.org/data/definitions/306.html"
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "In the following Java example the method createBankAccount is used to create a BankAccount object for a bank management application.",
+                      "postText": "However, there is no authentication mechanism to ensure that the user creating this bank account object has the authority to create new bank accounts. Some authentication mechanisms should be used to verify that the user has the authority to create bank account objects.",
+                      "code": "public BankAccount createBankAccount(String accountNumber, String accountType,\nString accountName, String accountSSN, double balance) {\nBankAccount account = new BankAccount();\naccount.setAccountNumber(accountNumber);\naccount.setAccountType(accountType);\naccount.setAccountOwnerName(accountName);\naccount.setAccountOwnerSSN(accountSSN);\naccount.setBalance(balance);\n\nreturn account;\n}"
+                    },
+                    {
+                      "language": {
+                        "name": "Java",
+                        "highlightAlias": "java"
+                      },
+                      "preText": "The following Java code includes a boolean variable and method for authenticating a user. If the user has not been authenticated then the createBankAccount will not create the bank account object.",
+                      "code": "private boolean isUserAuthentic = false;\n\n// authenticate user, \n\n// if user is authenticated then set variable to true \n\n// otherwise set variable to false \npublic boolean authenticateUser(String username, String password) {\n...\n}\n\npublic BankAccount createNewBankAccount(String accountNumber, String accountType,\nString accountName, String accountSSN, double balance) {\nBankAccount account = null;\n\nif (isUserAuthentic) {\naccount = new BankAccount();\naccount.setAccountNumber(accountNumber);\naccount.setAccountType(accountType);\naccount.setAccountOwnerName(accountName);\naccount.setAccountOwnerSSN(accountSSN);\naccount.setBalance(balance);\n}\nreturn account;\n}"
+                    }
+                  ]
+                }
+              ],
+              "attrs": {
+                "text": {
+                  "ref-y": 90,
+                  "text": "Smart Watch 1"
+                },
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            }
+          ]
+        },
+        "size": {
+          "height": 590,
+          "width": 790
+        }
       }
     ]
   }
