@@ -9161,6 +9161,18 @@ text.hasOpenThreats {
   }
 }
 
+.tab button.downloadButton {
+  float: right;
+  color: white;
+  background-color: dodgerblue;
+  border-radius: 15%;
+  height: 80%;
+}
+
+.tab button:hover.downloadButton {
+  background-color: royalblue;
+}
+
 /* ==== editable-form ==== */
 
 /* class for single editable element */
